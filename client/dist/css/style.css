@@ -1,0 +1,102 @@
+.jumbotron{
+	margin-top: auto;
+	padding-top: 5px;
+	padding-bottom: 10px;
+	margin-top: 0;
+	margin-bottom: 30px;
+}
+.active
+{
+	color: #FF0000;
+}
+#form
+{	
+	margin-top:50px;
+	margin-left: 330px;
+  margin-right: 330px;
+  background-color: aqua;
+  border: 2px;
+  height: 350px;
+}
+
+.row{
+display: inline;
+
+}
+
+body {margin: 0;}
+
+ul.topnav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #000;
+}
+
+ul.topnav li {float: left;}
+
+ul.topnav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+ul.topnav li a:hover:not(.active) {background-color: #111;}
+
+ul.topnav li a.active {background-color: #4CAF50;}
+
+ul.topnav li.right {float: right;}
+
+@media screen and (max-width: 600px){
+    ul.topnav li.right,
+    ul.topnav li {float: none;}
+}
+
+#imagelogo
+{
+width: 20px;
+height: 30px;
+float: left;
+display: inline;	
+}
+#image{
+	background-color: red;
+	width: 100px;
+	height: 100px;
+	display: inline;
+	float: left;
+}
+#updateButton
+{
+	display: inline;
+}
+
+#searchButton
+{
+	font-size: 16px;
+	display: inline;
+	margin-right: 50px;
+	width: 100px;
+	height: 40px;
+	float: right;
+
+}
+#searchBox
+{
+	width: 1200px;
+	height: 20px;
+	display: inline;
+	text-align: left;
+	padding-bottom: 20px;
+	padding-top: 20px;
+
+}
+
+#heading
+{
+	font-family: cursive;
+	text-align: center;
+}
