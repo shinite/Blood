@@ -1,6 +1,14 @@
 var React = require('react');
 var {browserHistory}= require ('react-router');
+var SignUp=require('./SignUp');
+
+
+
 var LoginComponent = React.createClass({
+
+  getInitialState:function(){
+    return {data:null}
+  },  
 
 checkUser:function(){
 var userObj={"username":this.refs.userName.value,"password":this.refs.passWord.value};
@@ -12,8 +20,9 @@ $.ajax({
   dataType:"JSON",
   success: function(data)
   {
+    
       //alert("Hello " + "Mr "+ this.refs.userName.value);
- console.log("Ajax login success"+data);
+ //console.log("Ajax login success");
    browserHistory.push('/');
   }.bind(this),
   error: function(err)
@@ -24,7 +33,15 @@ $.ajax({
 });
 },
 
+SignUp:function(){
+
+  this.setState({data:<SignUp/>})
+
+},
+
 render : function () {
+
+  if(this.state.data==null){
 
 return(
 
@@ -56,9 +73,25 @@ return(
 
       <br></br>
 
+      <br></br>
+
+      <button onClick={this.SignUp} className="btn btn-lg btn-primary btn-block">New User Sign Up</button>
+
+      <br></br>
+
+      
+
   </div>
 
-)
+)}
+
+else{
+  return (
+    <div>
+      {this.state.data}
+    </div>
+  )
+}
 
 }
 

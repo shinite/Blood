@@ -1207,8 +1207,7 @@ function is(x, y) {
   if (x === y) {
     // Steps 1-5, 7-10
     // Steps 6.b-6.e: +0 != -0
-    // Added the nonzero y check to make Flow happy, but it is redundant
-    return x !== 0 || y !== 0 || 1 / x === 1 / y;
+    return x !== 0 || 1 / x === 1 / y;
   } else {
     // Step 6.a: NaN == NaN
     return x !== x && y !== y;
@@ -26132,51 +26131,6 @@ module.exports = function (str) {
 },{}],234:[function(require,module,exports){
 arguments[4][45][0].apply(exports,arguments)
 },{"_process":49,"dup":45}],235:[function(require,module,exports){
-var React= require('react');
-var ReactDOM=require('react-dom');
-var {browserHistory, Route,Router,IndexRoute}=require('react-router');
-var Home=require("./component/Home");
-var AboutUs=require("./component/AboutUs");
-var NavBar=require("./component/NavBar");
-var Reciver=require("./component/Reciver");
-var Donor=require("./component/Donor");
-var LoginComponent=require('./component/LoginComponent');
-var LogoutComponent=require('./component/LogoutComponent');
-var SignUp=require('./component/SignUp');
-
-
-var HomePage=React.createClass({displayName: "HomePage",
-
-  render: function() {
-    return (
-      React.createElement("div", null, 
-        React.createElement(NavBar, null), 
-        this.props.children
-      )
-    )
-  }
-
-});
-
-ReactDOM.render(
-React.createElement(Router, {history: browserHistory}, 
-  React.createElement(Route, {path: "/", component: HomePage}, 
-    React.createElement(IndexRoute, {component: HomePage}), 
-    React.createElement(Route, {path: "/Home", component: Home}), 
-    React.createElement(Route, {path: "/AboutUs", component: AboutUs}), 
-    React.createElement(Route, {path: "LoginComponent", component: LoginComponent}), 
-    React.createElement(Route, {path: "LogoutComponent", component: LogoutComponent}), 
-    React.createElement(Route, {path: "SignUp", component: SignUp}), 
-    React.createElement(Route, {path: "/Reciver", component: Reciver}), 
-    React.createElement(Route, {path: "/Donor", component: Donor})
-  )
-),
-document.getElementById('app')); //puts the virtual dom & injects into the main physical DOM.
-
-
-module.exports=HomePage;
-
-},{"./component/AboutUs":236,"./component/Donor":237,"./component/Home":238,"./component/LoginComponent":239,"./component/LogoutComponent":240,"./component/NavBar":241,"./component/Reciver":243,"./component/SignUp":244,"react":232,"react-dom":51,"react-router":81}],236:[function(require,module,exports){
 var React=require("react");
 var Donor=require("./Donor");
 
@@ -26214,7 +26168,7 @@ var Donor=require("./Donor");
    }
  });
  module.exports = AboutUs;
-},{"./Donor":237,"react":232}],237:[function(require,module,exports){
+},{"./Donor":236,"react":232}],236:[function(require,module,exports){
 var React= require('react')
 var ReactDOM=require('react-dom')
 
@@ -26304,7 +26258,7 @@ render: function(){
 
 module.exports=Donor;
 
-},{"react":232,"react-dom":51}],238:[function(require,module,exports){
+},{"react":232,"react-dom":51}],237:[function(require,module,exports){
 var React=require("react");
 
  var Home=React.createClass({displayName: "Home",
@@ -26318,10 +26272,18 @@ var React=require("react");
    }
  });
  module.exports = Home;
-},{"react":232}],239:[function(require,module,exports){
+},{"react":232}],238:[function(require,module,exports){
 var React = require('react');
 var {browserHistory}= require ('react-router');
+var SignUp=require('./SignUp');
+
+
+
 var LoginComponent = React.createClass({displayName: "LoginComponent",
+
+  getInitialState:function(){
+    return {data:null}
+  },  
 
 checkUser:function(){
 var userObj={"username":this.refs.userName.value,"password":this.refs.passWord.value};
@@ -26333,8 +26295,9 @@ $.ajax({
   dataType:"JSON",
   success: function(data)
   {
+    
       //alert("Hello " + "Mr "+ this.refs.userName.value);
- console.log("Ajax login success"+data);
+ //console.log("Ajax login success");
    browserHistory.push('/');
   }.bind(this),
   error: function(err)
@@ -26345,7 +26308,15 @@ $.ajax({
 });
 },
 
+SignUp:function(){
+
+  this.setState({data:React.createElement(SignUp, null)})
+
+},
+
 render : function () {
+
+  if(this.state.data==null){
 
 return(
 
@@ -26375,18 +26346,34 @@ return(
 
       React.createElement("button", {onClick: this.checkUser, className: "btn btn-lg btn-primary btn-block"}, "LOGIN"), 
 
+      React.createElement("br", null), 
+
+      React.createElement("br", null), 
+
+      React.createElement("button", {onClick: this.SignUp, className: "btn btn-lg btn-primary btn-block"}, "New User Sign Up"), 
+
       React.createElement("br", null)
+
+      
 
   )
 
-)
+)}
+
+else{
+  return (
+    React.createElement("div", null, 
+      this.state.data
+    )
+  )
+}
 
 }
 
 });
 module.exports = LoginComponent;
 
-},{"react":232,"react-router":81}],240:[function(require,module,exports){
+},{"./SignUp":243,"react":232,"react-router":81}],239:[function(require,module,exports){
 var React = require('react');
 var {browserHistory}= require ('react-router');
 var LogoutComponent = React.createClass({displayName: "LogoutComponent",
@@ -26419,7 +26406,7 @@ componentDidMount:function(){
 
 module.exports = LogoutComponent;
 
-},{"react":232,"react-router":81}],241:[function(require,module,exports){
+},{"react":232,"react-router":81}],240:[function(require,module,exports){
 var React=require("react");
 var {Link}=require('react-router');
 var Navlink=require('./Navlink');
@@ -26435,14 +26422,14 @@ var NavBar=React.createClass({displayName: "NavBar",
        React.createElement("li", null, React.createElement(Navlink, {to: "/Reciver"}, "Need Blood")), 
         React.createElement("li", null, React.createElement(Navlink, {to: "/Donor"}, "Donate Blood")), 
        React.createElement("li", {className: "right"}, React.createElement(Navlink, {to: "/LoginComponent"}, "Login")), 
-       React.createElement("li", {className: "right"}, React.createElement(Navlink, {to: "/LogoutComponent"}, "Logout")), 
-       React.createElement("li", {className: "right"}, React.createElement(Navlink, {to: "/SignUp"}, "SignUp"))
+       React.createElement("li", {className: "right"}, React.createElement(Navlink, {to: "/LogoutComponent"}, "Logout"))
+      
        )
      )
    }
  });
  module.exports = NavBar;
-},{"./AboutUs":236,"./Home":238,"./Navlink":242,"react":232,"react-router":81}],242:[function(require,module,exports){
+},{"./AboutUs":235,"./Home":237,"./Navlink":241,"react":232,"react-router":81}],241:[function(require,module,exports){
 var React=require("react");
 var {Link}=require('react-router');
  var Navlink=React.createClass({displayName: "Navlink",
@@ -26454,7 +26441,7 @@ var {Link}=require('react-router');
    }
  });
  module.exports = Navlink;
-},{"react":232,"react-router":81}],243:[function(require,module,exports){
+},{"react":232,"react-router":81}],242:[function(require,module,exports){
 var React=require("react");
 var Reciver=React.createClass({displayName: "Reciver",
 
@@ -26543,7 +26530,7 @@ render: function(){
 });
 module.exports=Reciver;
 
-},{"react":232}],244:[function(require,module,exports){
+},{"react":232}],243:[function(require,module,exports){
 var React = require('react');
 var {browserHistory} = require('react-router');
 var SignUp = React.createClass({displayName: "SignUp",
@@ -26568,7 +26555,7 @@ var SignUp = React.createClass({displayName: "SignUp",
                    {
                        console.log(data);
                        browserHistory.push('/');
-                   }.bind(this),
+                   }.bind(this),  
                    error: function(err)
                    {
                        console.log(err);
@@ -26610,92 +26597,45 @@ render:function(){
 });
 module.exports=SignUp;
 
-},{"react":232,"react-router":81}],245:[function(require,module,exports){
-var React = require('react');
-var {browserHistory} = require('react-router');
+},{"react":232,"react-router":81}],244:[function(require,module,exports){
+var React= require('react');
 var ReactDOM=require('react-dom');
-var HomePage=require("./HomePage");
+var {browserHistory, Route,Router,IndexRoute}=require('react-router');
+var Home=require("./component/Home");
+var AboutUs=require("./component/AboutUs");
+var NavBar=require("./component/NavBar");
+var Reciver=require("./component/Reciver");
+var Donor=require("./component/Donor");
+var LoginComponent=require('./component/LoginComponent');
+var LogoutComponent=require('./component/LogoutComponent');
+var SignUp=require('./component/SignUp');
 
-var MainRouter = React.createClass({displayName: "MainRouter",
 
-  getInitialState: function(){
-    return {newdata:null}
-  },
+var HomePage=React.createClass({displayName: "HomePage",
 
-   signUpFunction : function(){
-               var username = this.refs.userName.value;
-               var password= this.refs.pass.value;
-               var cpassword=this.refs.confirmPass.value;
-               if (password===cpassword)
-               {
-               var signupForm = {
-                   'username':this.refs.userName.value,
-                   'password':this.refs.pass.value,
-                                       }
-               //object1 = JSON.stringify(object1);
-               console.log(signupForm);
-               $.ajax({
-                   url:'http://localhost:8080/users/AddUser',
-                   type: 'POST',
-                   data: signupForm,
-                   success: function(data)
-                   {
-                       console.log(data);
-                       browserHistory.push('/');
-                       if (data=="User inserted")
-                       {
-                        this.setState({newdata: React.createElement(HomePage, null)})
-                       }
-
-                   }.bind(this),
-                   error: function(err)
-                   {
-                       console.log(err);
-                   }.bind(this)
-                   });
-               }
-               else
-               {
-                       alert("password and confirm password have to be same !!");
-               }
-
-},
-  
-render:function(){
-
-  if(this.state.newdata==null){
-  return (
-
-      React.createElement("div", {className: "container"}, 
-          React.createElement("h1", {className: "form-signin-heading"}, "Please SIGN UP"), 
-          React.createElement("div", {className: "input-group input-group-lg"}, 
-              React.createElement("span", {className: "input-group-addon"}, "User Name"), 
-              React.createElement("input", {type: "text", ref: "userName", className: "form-control"})
-          ), 
-          React.createElement("br", null), 
-          React.createElement("div", {className: "input-group input-group-lg"}, 
-              React.createElement("span", {className: "input-group-addon"}, "  Password  "), 
-              React.createElement("input", {type: "password", ref: "pass", className: "form-control"})
-          ), 
-          React.createElement("br", null), 
-          React.createElement("div", {className: "input-group input-group-lg"}, 
-              React.createElement("span", {className: "input-group-addon"}, "Confirm Password"), 
-              React.createElement("input", {type: "password", ref: "confirmPass", className: "form-control"})
-          ), 
-          React.createElement("br", null), 
-          React.createElement("button", {onClick: this.signUpFunction, className: "btn btn-lg btn-primary btn-block"}, "SIGN UP"), 
-          React.createElement("br", null)
-      )
-      
-)}
-else{
-  return(
+  render: function() {
+    return (
       React.createElement("div", null, 
-      this.state.newdata
+        React.createElement(NavBar, null), 
+        this.props.children
       )
     )
-}
-}
+  }
+
 });
-ReactDOM.render(React.createElement(MainRouter, null),document.getElementById('app')); //puts the virtual dom & injects into the main physical DOM.
-},{"./HomePage":235,"react":232,"react-dom":51,"react-router":81}]},{},[245]);
+
+ReactDOM.render(
+React.createElement(Router, {history: browserHistory}, 
+  React.createElement(Route, {path: "/", component: HomePage}, 
+    React.createElement(IndexRoute, {component: Home }), 
+    React.createElement(Route, {path: "/Home", component: Home}), 
+    React.createElement(Route, {path: "/AboutUs", component: AboutUs}), 
+    React.createElement(Route, {path: "LoginComponent", component: LoginComponent}), 
+    React.createElement(Route, {path: "LogoutComponent", component: LogoutComponent}), 
+    React.createElement(Route, {path: "/Reciver", component: Reciver}), 
+    React.createElement(Route, {path: "/Donor", component: Donor})
+  )
+),
+document.getElementById('app')); //puts the virtual dom & injects into the main physical DOM.
+
+},{"./component/AboutUs":235,"./component/Donor":236,"./component/Home":237,"./component/LoginComponent":238,"./component/LogoutComponent":239,"./component/NavBar":240,"./component/Reciver":242,"./component/SignUp":243,"react":232,"react-dom":51,"react-router":81}]},{},[244]);

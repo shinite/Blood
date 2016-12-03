@@ -14,7 +14,7 @@ var NavBar=React.createClass({
         <li><Navlink to ="/Donor">Donate Blood</Navlink></li>
        <li className="right"><Navlink to="/LoginComponent">Login</Navlink></li>
        <li className="right"><Navlink to="/LogoutComponent">Logout</Navlink></li>
-       <li className="right"><Navlink to="/SignUp">SignUp</Navlink></li>
+      
        </ul>
      )
    }

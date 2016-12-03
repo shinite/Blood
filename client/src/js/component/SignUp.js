@@ -22,7 +22,7 @@ var SignUp = React.createClass({
                    {
                        console.log(data);
                        browserHistory.push('/');
-                   }.bind(this),
+                   }.bind(this),  
                    error: function(err)
                    {
                        console.log(err);
